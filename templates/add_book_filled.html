@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+    <h1>Auto-filled Fields </h1>
+        <div class="row">
+            <div class="col-4">
+                <img src="{{cover_large}}">
+            </div>
+            <div class="col-8">
+                <form action="/add_book" method="post">
+                        <div class="row mb-3">
+                            <label for="author" class="col-sm-2 col-form-label">Author(s)</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="off" autofocus class="form-control" id="author" name="author" type="text" value="{{author}}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="title" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="off" autofocus class="form-control" id="title" name="title" type="text" value="{{title}}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="publisher" class="col-sm-2 col-form-label">Publisher</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="off" autofocus class="form-control" id="publisher" name="publisher" type="text" value="{{publisher}}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="publish_date" class="col-sm-2 col-form-label">Date</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="off" autofocus class="form-control" id="publish_date" name="publish_date" type="text" value="{{publish_date}}">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Add Book</button>
+                </form>
+            </div>
+        </div>
+
+
+
+{% endblock %}

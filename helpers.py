@@ -6,6 +6,9 @@ from flask import redirect, render_template, request, session
 
 def get_book(isbn):
 
+    # Convert ISBN to string with leading text for use as dictionary key
+    isbn_str = "ISBN:" + str(isbn)
+
     # Contact API
 
     try:
@@ -16,26 +19,18 @@ def get_book(isbn):
     except requests.RequestException:
         return None
 
+     # Parse response
 
-    info = response.json()
-    return info
+    try:
+        info = response.json()
 
-    # Parse response
-
-    #try:
-        #info = response.json()
-        
-         
-       # return {
-
-
-
-            #"title": info['ISBN:0553210696']['title']
-            #"author": info[f"ISBN:{isbn}"]["authors"]["name"]
-            #"publisher": info[f"ISBN:{isbn}"]["publishers"]["name"]
-            #"publish_date": info[f"ISBN:{isbn}"]["publish_date"]
-            #"cover_small": info[f"ISBN:{isbn}"]["cover"]["small"]
-            #"cover_large": info[f"ISBN:{isbn}"]["cover"]["large"]
-       # }
-    #except (KeyError, TypeError, ValueError):
-       # return None
+        return {
+            "title": info[isbn_str]["title"],
+            "author": info[isbn_str]["authors"][0]["name"],
+            "publisher": info[isbn_str]["publishers"][0]["name"],
+            "publish_date": info[isbn_str]["publish_date"],
+            "cover_small": info[isbn_str]["cover"]["small"],
+            "cover_large": info[isbn_str]["cover"]["large"]
+        }
+    except (KeyError, TypeError, ValueError):
+        return None

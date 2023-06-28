@@ -27,13 +27,20 @@ def add_book():
 @app.route("/lookup", methods=["GET", "POST"])
 def lookup():
 
-    isbn = request.form.get("isbn")
+    # If form is submitted
+    if request.method == "POST":
+        
+        isbn = request.form.get("isbn")
 
-    info = {}
-    info = get_book(isbn)
+        info = {}
+        info = get_book(isbn)
 
-    print(info)
+        print(info)
 
-    print(info[f'ISBN:{str(isbn)}']['title'])
-
-    return render_template("lookup.html")
+        if info != None:
+            return render_template("add_book_filled.html", author=info['author'], title=info['title'], publisher=info['publisher'], publish_date=info['publish_date'], cover_large=info['cover_large'])
+        else:
+            return render_template("add_book.html")
+    
+    else:
+        return render_template("lookup.html")

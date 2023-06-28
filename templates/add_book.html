@@ -5,11 +5,17 @@
 {% endblock %}
 
 {% block main %}
-<form action="/lookup" method="post">
-    <div class="mb-3">
-        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="isbn" name="isbn" placeholder="ISBN" type="text">
-    </div>
-    <button class="btn btn-primary" type="submit">Look Up</button>
-</form>
-    
+
+    <h1>Auto-filled Fields </h1>
+        <p>{{author}}</p>
+
+
+        <form action="/add_book" method="post">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="isbn" name="isbn" placeholder="author" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Add</button>
+        </form>
+        
+
 {% endblock %}

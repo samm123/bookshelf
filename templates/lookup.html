@@ -6,6 +6,12 @@
 
 {% block main %}
 
-    <h1>This will show you what you looked up!</h1>
+<form action="/lookup" method="post">
+    <div class="mb-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="isbn" name="isbn" placeholder="ISBN" type="text">
+    </div>
+    <button class="btn btn-primary" type="submit">Look Up</button>
+</form>
+    
     
 {% endblock %}
