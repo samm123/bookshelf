@@ -9,13 +9,35 @@
     <h1>Auto-filled Fields </h1>
         <p>{{author}}</p>
 
-
-        <form action="/add_book" method="post">
-            <div class="mb-3">
-                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="isbn" name="isbn" placeholder="author" type="text">
-            </div>
-            <button class="btn btn-primary" type="submit">Add</button>
-        </form>
+        <div class="col-8">
+            <form action="/add_book" method="post">
+                    <div class="row mb-3">
+                        <label for="author" class="col-sm-2 col-form-label">Author(s)</label>
+                        <div class="col-sm-6">
+                            <input autocomplete="off" autofocus class="form-control" id="author" name="author" type="text">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="title" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-6">
+                            <input autocomplete="off" autofocus class="form-control" id="title" name="title" type="text">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="publisher" class="col-sm-2 col-form-label">Publisher</label>
+                        <div class="col-sm-6">
+                            <input autocomplete="off" autofocus class="form-control" id="publisher" name="publisher" type="text">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="publish_date" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-6">
+                            <input autocomplete="off" autofocus class="form-control" id="publish_date" name="publish_date" type="text">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add Book</button>
+            </form>
+        </div>
         
 
 {% endblock %}

@@ -106,11 +106,20 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
-@app.route("/add_book")
+@app.route("/add_book", methods=["POST"])
 @login_required
 def add_book():
 
-    return render_template("add_book.html")
+    # Put form data into dictionary
+    book_data = {}
+    book_data = request.form.to_dict(flat=False)
+
+    # Insert form data into book database
+    db.execute("INSERT INTO books (author, title, publisher, year, cover_L, user_id) VALUES (?, ?, ?, ?, ?, ?)", 
+               book_data["author"], book_data["title"], book_data["publisher"], book_data["publish_date"], book_data["cover_L"], session["user_id"])
+
+    # Redirect to index
+    return redirect("/")
 
 @app.route("/lookup", methods=["GET", "POST"])
 def lookup():
