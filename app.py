@@ -30,8 +30,6 @@ def book(id):
 
     book = db.execute("SELECT * FROM books WHERE book_id = ?", id)
 
-    print(book)
-
     return render_template("book.html", book=book)
 
 @app.route("/book_edit", methods=["POST"])
@@ -43,6 +41,16 @@ def book_edit():
     book = db.execute("SELECT * FROM books WHERE book_id = ?", book_id)
 
     return render_template("book_edit.html", book=book)
+
+@app.route("/delete_book", methods=["POST"])
+@login_required
+def delete_book():
+
+    book_id = request.form.get("book_id")
+
+    db.execute("DELETE FROM books WHERE book_id = ?", book_id)
+
+    return redirect("/")
 
 
 @app.route("/update_book", methods=["POST"])
