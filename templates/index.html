@@ -5,7 +5,55 @@
 {% endblock %}
 
 {% block main %}
+<main class="container py-5 text-center">
+    <h1>These are all of your books!</h1>
+    <table id="data-table" class="sortable table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="text-start">Cover</th>
+                <th class="text-start">Title</th>
+                <th class="text-start">Author</th>
+                <th class="text-end">Publisher</th>
+                <th class="text-end">Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr class ="clickable" data-id='{{book["book_id"]}}'>
+                    <td class="text-start"><img class="thumb" src='{{book["cover_L"]}}'></td>
+                    <td class="text-start">{{book["title"]}}</td>
+                    <td class="text-start">{{book["author"]}}</td>
+                    <td class="text-end">{{book["publisher"]}}</td>
+                    <td class="text-end">{{book["year"]}}</td>
 
-    <h1>This is where you'd see your books!</h1>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<script>
+  // Function to handle the click event on table rows
+  function rowClickHandler(event) {
+    const row = event.target.closest('tr'); // Get the clicked row
+    if (!row || !row.classList.contains('clickable')) return; // If not a clickable row, do nothing // If the clicked element is not a row, do nothing
+
+    const id = row.dataset.id; // Get the data-id attribute from the row
+
+    // Construct the URL for the new page using the row's data
+    const url = '/book/' + id; // Replace 'new_page' with the appropriate route in your Flask app
+
+    // Redirect to the new page
+    window.location.href = url;
+  }
+
+  // Add a click event listener to each row
+  const table = document.querySelector('table');
+  const rows = table.getElementsByClassName('clickable');
+  for (const row of rows) {
+    row.addEventListener('click', rowClickHandler);
+  }
+</script>
+
+    
     
 {% endblock %}

@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+<div class="row">
+    <div class="col-4">
+        <img src='{{book[0]["cover_L"]}}'>
+    </div>
+    <div class="col-8">
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <h2>Title: {{book[0]["title"]}}</h2>
+                </div>
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <h3>Author: {{book[0]["author"]}}</h3>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <h3>Publisher: {{book[0]["publisher"]}}</h3>
+                </div> 
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <h3>Year: {{book[0]["year"]}}</h3>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <form action="/book_edit" method="POST">
+                <div class="col-sm-6">
+                    <input type="hidden" id="book_id" name="book_id" value="{{book[0]['book_id']}}">
+                    <button btn btn-primary type="submit">Edit Book</button>
+                </div>
+                </form>
+            </div>
+    </div>
+</div>
+
+
+{% endblock %}

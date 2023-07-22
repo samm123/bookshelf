@@ -18,8 +18,42 @@ db = SQL("sqlite:///books.db")
 @app.route("/")
 @login_required
 def index():
+
+    # Get all books associated with current user
+    books = db.execute("SELECT * FROM books WHERE user_id = ?", session["user_id"])
     
-    return render_template("index.html")
+    return render_template("index.html", books=books)
+
+@app.route("/book/<int:id>")
+@login_required
+def book(id):
+
+    book = db.execute("SELECT * FROM books WHERE book_id = ?", id)
+
+    print(book)
+
+    return render_template("book.html", book=book)
+
+@app.route("/book_edit", methods=["POST"])
+@login_required
+def book_edit():
+
+    book_id = request.form.get("book_id")
+
+    book = db.execute("SELECT * FROM books WHERE book_id = ?", book_id)
+
+    return render_template("book_edit.html", book=book)
+
+
+@app.route("/update_book", methods=["POST"])
+@login_required
+def update_book():
+
+    db.execute("UPDATE books SET (author, title, publisher, year, cover_L) = (?, ?, ?, ?, ?) WHERE book_id = ?", 
+               request.form.get("author"), request.form.get("title"), request.form.get("publisher"), request.form.get("year"), request.form.get("cover_L"), request.form.get("book_id"))
+    
+    return redirect("/")
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -130,9 +164,7 @@ def lookup():
         isbn = request.form.get("isbn")
 
         info = {}
-        info = get_book(isbn)
-
-        print(info)
+        info = get_book(isbn) 
 
         if info != None:
             return render_template("add_book_filled.html", author=info['author'], title=info['title'], publisher=info['publisher'], publish_date=info['publish_date'], cover_large=info['cover_large'])
